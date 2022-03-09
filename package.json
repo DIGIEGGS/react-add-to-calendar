@@ -18,7 +18,7 @@
     "eject": "react-scripts eject",
     "test": "jest",
     "prepare": "husky install",
-    "lint": "eslint src",
+    "lint": "eslint --ignore-path .eslintignore src",
     "prettier:fix": "prettier --ignore-path .prettierignore --write \"**/*.+(ts|tsx)\""
   },
   "keywords": [],
