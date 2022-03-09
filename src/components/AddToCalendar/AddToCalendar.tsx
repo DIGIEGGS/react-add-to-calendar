@@ -7,7 +7,7 @@ import { isMobile, getRandomKey, buildUrl } from "../../helpers";
 import { IEvent } from "../../types";
 
 // styles
-import "../../assets/sass/main.scss";
+import "./AddToCalendar.css";
 
 interface IOptions {
   optionsOpen?: boolean;
