@@ -7,7 +7,7 @@ import { isMobile, getRandomKey, buildUrl } from "../../helpers";
 import { IEvent } from "../../types";
 
 // styles
-import "./AddToCalendar.css";
+//import "./AddToCalendar.css";
 
 interface IOptions {
   optionsOpen?: boolean;
@@ -194,7 +194,7 @@ const AddToCalendar: React.FC<IOptions> = ({
   ]);
 
   const renderButton = useCallback(() => {
-    let button_label = buttonLabel;
+    let buttonLbl = buttonLabel;
     let buttonIcon = null;
     const template = Object.keys(buttonTemplate);
 
@@ -214,19 +214,19 @@ const AddToCalendar: React.FC<IOptions> = ({
             : "caret-down"
           : template[0];
 
-      const button_IconClass = `${buttonClassPrefix} ${iconPrefix}${mainButtonIconClass}`;
+      const lastButtonIconClass = `${buttonClassPrefix} ${iconPrefix}${mainButtonIconClass}`;
 
-      buttonIcon = <i className={button_IconClass} />;
-      button_label =
+      buttonIcon = <i className={lastButtonIconClass} />;
+      buttonLbl =
         iconPlacement === "right" ? (
           <span>
-            {button_label + " "}
+            {buttonLbl + " "}
             {buttonIcon}
           </span>
         ) : (
           <span>
             {buttonIcon}
-            {" " + button_label}
+            {" " + buttonLbl}
           </span>
         );
     }
@@ -238,7 +238,7 @@ const AddToCalendar: React.FC<IOptions> = ({
     return (
       <div className={buttonWrapperClass}>
         <a className={buttonClass} onClick={toggleCalendarDropdown}>
-          {button_label}
+          {buttonLbl}
         </a>
       </div>
     );

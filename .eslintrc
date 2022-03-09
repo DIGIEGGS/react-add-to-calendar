@@ -1,31 +1,103 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "jest": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended",
-        "plugin:prettier/recommended"
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "jsx": true,
+    "useJSXTextNode": true
+  },
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "react-hooks",
+    "import"
+  ],
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "format": [
+          "PascalCase"
+        ],
+        "prefix": [
+          "I"
+        ]
+      },
+      {
+        "selector": "typeLike",
+        "format": [
+          "PascalCase"
+        ]
+      },
+      {
+        "selector": "variableLike",
+        "format": [
+          "camelCase",
+          "PascalCase"
+        ],
+        "leadingUnderscore": "allow"
+      },
+      {
+        "selector": "property",
+        "filter": "__typename",
+        "format": null
+      },
+      {
+        "selector": "variable",
+        "filter": "__typename",
+        "format": null
+      },
+      {
+        "selector": [
+          "enumMember"
+        ],
+        "format": [
+          "UPPER_CASE"
+        ]
+      }
     ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": "latest",
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "react-hooks",
-        "@typescript-eslint"
-    ],
-    "rules": {
-        "react/react-in-jsx-scope": "off",
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn"
-    }
+    "import/no-named-as-default": 0,
+    "import/namespace": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "sibling",
+          "parent",
+          "index",
+          "object",
+          "type"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "builtin",
+            "position": "before"
+          },
+          {
+            "pattern": "*style*",
+            "patternOptions": {
+              "matchBase": true
+            },
+            "group": "type",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [
+          "react"
+        ]
+      }
+    ]
+  }
 }
