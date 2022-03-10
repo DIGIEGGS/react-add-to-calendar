@@ -1,4 +1,9 @@
-import moment from "moment";
+import parse from "date-fns/parse";
+import parseISO from "date-fns/parseISO";
+import differenceInMilliseconds from "date-fns/differenceInMilliseconds";
+import millisecondsToHours from "date-fns/millisecondsToHours";
+import toDate from "date-fns/toDate";
+import { format, utcToZonedTime } from "date-fns-tz";
 
 // types
 import { IEvent } from "../types";
@@ -8,28 +13,33 @@ export const getRandomKey = () => {
   return new Date().getTime().toString() + "_" + n;
 };
 
-export const formatTime = (date: moment.MomentInput) => {
-  const formattedDate = moment.utc(date).format("YYYYMMDDTHHmmssZ");
-  return formattedDate.replace("+00:00", "Z");
+export const formatTime = (date: string) => {
+  const parsedDate = parseISO(date);
+  const formatInTimeZone = (
+    date: string | number | Date,
+    fmt: string,
+    tz: string
+  ) => format(utcToZonedTime(date, tz), fmt, { timeZone: tz });
+
+  const formattedTime = formatInTimeZone(
+    parsedDate,
+    "yyyyMMdd'T'HHmmss'Z'",
+    "UTC"
+  );
+  return formattedTime;
 };
 
-export const calculateDuration = (
-  startTime: moment.MomentInput,
-  endTime: moment.MomentInput
-) => {
-  // snag parameters and format properly in UTC
-  const end = moment.utc(endTime).format("DD/MM/YYYY HH:mm:ss");
-  const start = moment.utc(startTime).format("DD/MM/YYYY HH:mm:ss");
+export const calculateDuration = (startTime: string, endTime: string) => {
+  const end = format(parseISO(endTime), "dd/MM/yyyy HH:mm:ss");
+  const start = format(parseISO(startTime), "dd/MM/yyyy HH:mm:ss");
 
   // calculate the difference in milliseconds between the start and end times
-  const difference = moment(end, "DD/MM/YYYY HH:mm:ss").diff(
-    moment(start, "DD/MM/YYYY HH:mm:ss")
+  const difference = differenceInMilliseconds(
+    parse(end, "dd/MM/yyyy HH:mm:ss", new Date()),
+    parse(start, "dd/MM/yyyy HH:mm:ss", new Date())
   );
 
-  // convert difference from above to a proper momentJs duration object
-  const duration = moment.duration(difference);
-
-  return Math.floor(duration.asHours()) + moment.utc(difference).format(":mm");
+  return millisecondsToHours(difference) + format(toDate(difference), ":mm");
 };
 
 // determine if a mobile browser is being used
