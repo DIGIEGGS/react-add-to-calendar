@@ -9,6 +9,12 @@ import { IEvent } from "../../types";
 // styles
 import "./AddToCalendar.css";
 
+// svg
+import apple from "../../assets/img/apple.svg";
+import google from "../../assets/img/google.svg";
+import outlook from "../../assets/img/outlook.svg";
+import yahoo from "../../assets/img/yahoo.svg";
+
 interface IOptions {
   optionsOpen?: boolean;
   listItems?: object[];
@@ -51,6 +57,13 @@ const defaultValues = {
     { yahoo: "Yahoo" }
   ],
   rootClass: "react-add-to-calendar"
+};
+
+const svgMap = {
+  apple: apple,
+  google: google,
+  outlook: outlook,
+  yahoo: yahoo
 };
 
 const AddToCalendar: React.FC<IOptions> = ({
@@ -158,15 +171,14 @@ const AddToCalendar: React.FC<IOptions> = ({
       if (displayItemIcons) {
         const currentIcon =
           currentItem === "outlook" || currentItem === "outlookcom"
-            ? "windows"
-            : currentItem;
-        icon = <i className={"fa fa-" + currentIcon} />;
+            ? outlook
+            : svgMap[currentItem as keyof typeof listItem];
+        icon = <img src={currentIcon} />;
       }
 
       return (
         <li key={getRandomKey()}>
           <a
-            className={currentItem + "-link"}
             onClick={handleDropdownLinkClick}
             href={buildUrl(event, currentItem, isCrappyIE)}
             target="_blank"
@@ -194,7 +206,7 @@ const AddToCalendar: React.FC<IOptions> = ({
   ]);
 
   const renderButton = useCallback(() => {
-    let button_label = buttonLabel;
+    let buttonLbl = buttonLabel;
     let buttonIcon = null;
     const template = Object.keys(buttonTemplate);
 
@@ -214,19 +226,19 @@ const AddToCalendar: React.FC<IOptions> = ({
             : "caret-down"
           : template[0];
 
-      const button_IconClass = `${buttonClassPrefix} ${iconPrefix}${mainButtonIconClass}`;
+      const lastButtonIconClass = `${buttonClassPrefix} ${iconPrefix}${mainButtonIconClass}`;
 
-      buttonIcon = <i className={button_IconClass} />;
-      button_label =
+      buttonIcon = <i className={lastButtonIconClass} />;
+      buttonLbl =
         iconPlacement === "right" ? (
           <span>
-            {button_label + " "}
+            {buttonLbl + " "}
             {buttonIcon}
           </span>
         ) : (
           <span>
             {buttonIcon}
-            {" " + button_label}
+            {" " + buttonLbl}
           </span>
         );
     }
@@ -238,7 +250,7 @@ const AddToCalendar: React.FC<IOptions> = ({
     return (
       <div className={buttonWrapperClass}>
         <a className={buttonClass} onClick={toggleCalendarDropdown}>
-          {button_label}
+          {buttonLbl}
         </a>
       </div>
     );
