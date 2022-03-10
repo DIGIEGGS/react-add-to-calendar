@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    text-align: center;
+}
+
+.react-add-to-calendar {
+    margin-top: 100px;
+}

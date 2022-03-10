@@ -7,7 +7,13 @@ import { isMobile, getRandomKey, buildUrl } from "../../helpers";
 import { IEvent } from "../../types";
 
 // styles
-//import "./AddToCalendar.css";
+import "./AddToCalendar.css";
+
+// svg
+import apple from "../../assets/img/apple.svg";
+import google from "../../assets/img/google.svg";
+import outlook from "../../assets/img/outlook.svg";
+import yahoo from "../../assets/img/yahoo.svg";
 
 interface IOptions {
   optionsOpen?: boolean;
@@ -51,6 +57,13 @@ const defaultValues = {
     { yahoo: "Yahoo" }
   ],
   rootClass: "react-add-to-calendar"
+};
+
+const svgMap = {
+  apple: apple,
+  google: google,
+  outlook: outlook,
+  yahoo: yahoo
 };
 
 const AddToCalendar: React.FC<IOptions> = ({
@@ -158,15 +171,14 @@ const AddToCalendar: React.FC<IOptions> = ({
       if (displayItemIcons) {
         const currentIcon =
           currentItem === "outlook" || currentItem === "outlookcom"
-            ? "windows"
-            : currentItem;
-        icon = <i className={"fa fa-" + currentIcon} />;
+            ? outlook
+            : svgMap[currentItem as keyof typeof listItem];
+        icon = <img src={currentIcon} />;
       }
 
       return (
         <li key={getRandomKey()}>
           <a
-            className={currentItem + "-link"}
             onClick={handleDropdownLinkClick}
             href={buildUrl(event, currentItem, isCrappyIE)}
             target="_blank"
