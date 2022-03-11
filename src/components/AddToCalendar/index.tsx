@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback, ReactElement } from "react";
 import { isMobile, getRandomKey, buildUrl } from "../../helpers";
 
 // types
-import { IEvent } from "../../types";
+import { IAddToCalendarEvent } from "../../types";
 
 // styles
 import "./AddToCalendar.css";
@@ -19,7 +19,7 @@ interface IOptions {
   optionsOpen?: boolean;
   listItems?: object[];
   displayItemIcons?: boolean;
-  event: IEvent;
+  event: IAddToCalendarEvent;
   dropdownClass?: string;
   buttonLabel?: string | ReactElement;
   buttonTemplate?: object;

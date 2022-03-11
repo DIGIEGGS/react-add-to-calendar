@@ -6,7 +6,7 @@ import toDate from "date-fns/toDate";
 import { format, utcToZonedTime } from "date-fns-tz";
 
 // types
-import { IEvent } from "../types";
+import { IAddToCalendarEvent } from "../types";
 
 export const getRandomKey = () => {
   const n = Math.floor(Math.random() * 999999999999).toString();
@@ -62,7 +62,7 @@ export const isMobile = () => {
   return mobile;
 };
 
-export const buildUrl = (event: IEvent, type: string, isCrappyIE: boolean) => {
+export const buildUrl = (event: IAddToCalendarEvent, type: string, isCrappyIE: boolean) => {
   let calendarUrl = "";
 
   // allow mobile browsers to open the gmail data URI within native calendar app

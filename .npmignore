@@ -9,6 +9,7 @@ scripts/
 package-lock.json
 webpack.config.js
 .eslintrc.json
+.eslintrc
 tsconfig.json
 tsconfig.gen-dts.json
 *.scss

@@ -1,4 +1,4 @@
-export interface IEvent {
+export interface IAddToCalendarEvent {
   title: string;
   description: string;
   location: string;
