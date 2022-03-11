@@ -8,10 +8,10 @@
   "homepage": "https://github.com/DIGIEGGS/react-add-to-calendar",
   "repository": {
     "type": "git",
-    "url": "git@github.com:DIGIEGGS/react-add-to-calendar.git"
+    "url": "https://github.com/DIGIEGGS/react-add-to-calendar.git"
   },
   "scripts": {
-    "build:lib": "npm run clean && npm run build:babel && npm run build:types && node ./scripts/copyTS.js",
+    "build:lib": "npm run build:babel && npm run build:types && node ./scripts/copyTS.js",
     "build:babel": "concurrently \"npm run build:babel:esm && npm run build:babel:umd\" \"npm run build:babel:cjs\"",
     "build:babel:cjs": "BABEL_ENV=cjs babel --source-maps --extensions \".js,.ts,.tsx\" src --out-dir lib/js --presets=@babel/env --copy-files --no-copy-ignored",
     "build:babel:esm": "BABEL_ENV=esm babel --source-maps --extensions \".js,.ts,.tsx\" src --out-dir lib/esm --copy-files --no-copy-ignored",
