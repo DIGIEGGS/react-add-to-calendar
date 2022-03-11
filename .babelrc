@@ -1,6 +1,14 @@
 {
-  "presets": ["@babel/react"],
-  "ignore": ["**/__snapshots__", "**/*.d.ts", "**/*.test.*", "**/local_test"],
+  "presets": [
+    "@babel/react"
+  ],
+  "ignore": [
+    "**/__snapshots__",
+    "**/*.d.ts",
+    "**/*.test.*",
+    "**/local_test",
+    "**/__tests__"
+  ],
   "plugins": [
     "@babel/plugin-transform-typescript",
     "babel-plugin-typescript-to-proptypes",
