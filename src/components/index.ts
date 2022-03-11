@@ -1,2 +1,2 @@
-export { default } from "./AddToCalendar";
-export type { IAddToCalendarEvent } from "../types"
+export { default as AddToCalendar } from "./AddToCalendar";
+export type { IAddToCalendarEvent as AddToCalendarEvent } from "../types"
