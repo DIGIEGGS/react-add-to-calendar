@@ -1,6 +1,6 @@
 {
   "name": "react-add-to-calendar",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "A simple React Button Component to organize your calendar",
   "main": "./lib/js/index.js",
   "module": "./lib/esm/index.js",

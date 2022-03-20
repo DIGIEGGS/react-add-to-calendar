@@ -22,9 +22,6 @@ interface IOptions {
   event: IAddToCalendarEvent;
   dropdownClass?: string;
   buttonLabel?: string | ReactElement;
-  buttonTemplate?: object;
-  buttonIconClass?: string;
-  useFontAwesomeIcons?: boolean;
   buttonClassClosed?: string;
   buttonClassOpen?: string;
   buttonWrapperClass?: string;
@@ -35,20 +32,10 @@ const defaultValues = {
   buttonClassClosed: "react-add-to-calendar__button",
   buttonClassOpen: "react-add-to-calendar__button--light",
   buttonLabel: "Add to My Calendar",
-  buttonTemplate: { caret: "right" },
-  buttonIconClass: "react-add-to-calendar__icon--",
-  useFontAwesomeIcons: true,
   buttonWrapperClass: "react-add-to-calendar__wrapper",
   displayItemIcons: true,
   optionsOpen: false,
   dropdownClass: "react-add-to-calendar__dropdown",
-  // event: {
-  //   title: "Sample Event",
-  //   description: "This is the sample event provided as an example only",
-  //   location: "Portland, OR",
-  //   startTime: "2016-09-16T20:15:00-04:00",
-  //   endTime: "2016-09-16T21:45:00-04:00"
-  // },
   listItems: [
     { apple: "Apple Calendar" },
     { google: "Google" },
@@ -73,13 +60,10 @@ const AddToCalendar: React.FC<IOptions> = ({
   event,
   dropdownClass = defaultValues.dropdownClass,
   buttonLabel = defaultValues.buttonLabel,
-  buttonTemplate = defaultValues.buttonTemplate,
-  buttonIconClass = defaultValues.buttonIconClass,
   buttonClassClosed = defaultValues.buttonClassClosed,
   buttonClassOpen = defaultValues.buttonClassOpen,
   buttonWrapperClass = defaultValues.buttonWrapperClass,
-  rootClass = defaultValues.rootClass,
-  useFontAwesomeIcons = defaultValues.useFontAwesomeIcons
+  rootClass = defaultValues.rootClass
 }) => {
   const [optionsOpenState, setOptionsOpenState] = useState<boolean>(
     optionsOpen || false
@@ -109,18 +93,8 @@ const AddToCalendar: React.FC<IOptions> = ({
   }, []);
 
   const toggleCalendarDropdown = useCallback(() => {
-    setOptionsOpenState(!optionsOpenState);
-  }, [optionsOpenState]);
-
-  useEffect(() => {
-    if (optionsOpenState) {
-      window.document.addEventListener("click", toggleCalendarDropdown, false);
-    }
-
-    return () => {
-      window.document.removeEventListener("click", toggleCalendarDropdown);
-    };
-  }, [optionsOpenState, toggleCalendarDropdown]);
+    setOptionsOpenState(prev => !prev);
+  }, []);
 
   const handleDropdownLinkClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -206,43 +180,6 @@ const AddToCalendar: React.FC<IOptions> = ({
   ]);
 
   const renderButton = useCallback(() => {
-    let buttonLbl = buttonLabel;
-    let buttonIcon = null;
-    const template = Object.keys(buttonTemplate);
-
-    if (template[0] !== "textOnly") {
-      const iconPlacement =
-        buttonTemplate[template[0] as keyof typeof buttonTemplate];
-      const buttonClassPrefix =
-        buttonIconClass === "react-add-to-calendar__icon--"
-          ? `${buttonIconClass}${iconPlacement}`
-          : buttonIconClass;
-      const iconPrefix = useFontAwesomeIcons ? "fa fa-" : "";
-
-      const mainButtonIconClass =
-        template[0] === "caret"
-          ? optionsOpenState
-            ? "caret-up"
-            : "caret-down"
-          : template[0];
-
-      const lastButtonIconClass = `${buttonClassPrefix} ${iconPrefix}${mainButtonIconClass}`;
-
-      buttonIcon = <i className={lastButtonIconClass} />;
-      buttonLbl =
-        iconPlacement === "right" ? (
-          <span>
-            {buttonLbl + " "}
-            {buttonIcon}
-          </span>
-        ) : (
-          <span>
-            {buttonIcon}
-            {" " + buttonLbl}
-          </span>
-        );
-    }
-
     const buttonClass = optionsOpenState
       ? buttonClassClosed + " " + buttonClassOpen
       : buttonClassClosed;
@@ -250,7 +187,7 @@ const AddToCalendar: React.FC<IOptions> = ({
     return (
       <div className={buttonWrapperClass}>
         <a className={buttonClass} onClick={toggleCalendarDropdown}>
-          {buttonLbl}
+          {buttonLabel}
         </a>
       </div>
     );
@@ -259,11 +196,8 @@ const AddToCalendar: React.FC<IOptions> = ({
     toggleCalendarDropdown,
     buttonClassClosed,
     buttonClassOpen,
-    buttonIconClass,
     buttonLabel,
-    buttonTemplate,
-    buttonWrapperClass,
-    useFontAwesomeIcons
+    buttonWrapperClass
   ]);
 
   return (
