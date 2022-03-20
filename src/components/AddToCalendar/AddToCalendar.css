@@ -22,15 +22,7 @@
 .react-add-to-calendar__button--light {
   background-color: #fff;
 }
-  
-.react-add-to-calendar__icon--right {
-  padding-left: 5px;
-}
-  
-.react-add-to-calendar__icon--left {
-  padding-right: 5px;
-}
-  
+
 .react-add-to-calendar__dropdown {
   position: absolute;
   top: 30px;
