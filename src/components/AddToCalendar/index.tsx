@@ -26,6 +26,13 @@ interface IOptions {
   buttonClassOpen?: string;
   buttonWrapperClass?: string;
   rootClass?: string;
+  svgList?: {
+    apple: any;
+    google: any;
+    outlook: any;
+    yahoo: any;
+    outlookcom: any;
+  };
 }
 
 const defaultValues = {
@@ -50,6 +57,7 @@ const svgMap = {
   apple: apple,
   google: google,
   outlook: outlook,
+  outlookcom: outlook,
   yahoo: yahoo
 };
 
@@ -63,7 +71,8 @@ const AddToCalendar: React.FC<IOptions> = ({
   buttonClassClosed = defaultValues.buttonClassClosed,
   buttonClassOpen = defaultValues.buttonClassOpen,
   buttonWrapperClass = defaultValues.buttonWrapperClass,
-  rootClass = defaultValues.rootClass
+  rootClass = defaultValues.rootClass,
+  svgList = svgMap
 }) => {
   const [optionsOpenState, setOptionsOpenState] = useState<boolean>(
     optionsOpen || false
@@ -143,10 +152,7 @@ const AddToCalendar: React.FC<IOptions> = ({
 
       let icon = null;
       if (displayItemIcons) {
-        const currentIcon =
-          currentItem === "outlook" || currentItem === "outlookcom"
-            ? outlook
-            : svgMap[currentItem as keyof typeof listItem];
+        const currentIcon = svgList[currentItem as keyof typeof listItem];
         icon = <img src={currentIcon} />;
       }
 
@@ -171,12 +177,13 @@ const AddToCalendar: React.FC<IOptions> = ({
       </div>
     );
   }, [
+    listItems,
+    dropdownClass,
     displayItemIcons,
+    handleDropdownLinkClick,
     event,
     isCrappyIE,
-    dropdownClass,
-    listItems,
-    handleDropdownLinkClick
+    svgList
   ]);
 
   const renderButton = useCallback(() => {
