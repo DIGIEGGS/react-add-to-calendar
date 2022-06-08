@@ -57,6 +57,7 @@ const svgMap = {
   apple: apple,
   google: google,
   outlook: outlook,
+  outlookcom: outlook,
   yahoo: yahoo
 };
 
